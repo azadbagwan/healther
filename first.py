@@ -49,7 +49,7 @@ def is_logged_in(f):
             return f(*args, **kwargs)
 
         else:
-            flash("Unathorized, Please login", "danger")
+            #flash("Unathorized, Please login", "danger")
             return redirect(url_for('login'))
     return wrap
 
@@ -204,7 +204,7 @@ def visit_details(id):
 
 # all doctors
 @app.route("/doctors")
-@is_logged_in
+#@is_logged_in
 def doctors():
     # create cursor
     cur = mysql.connection.cursor()
