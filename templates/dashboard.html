@@ -1,0 +1,122 @@
+{% extends 'layout.html' %}
+{% block body %}
+   <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<h1>Dashboard <small>Welcome <strong>{{session.username}}</strong></small></h1>
+<div class="container">
+    <div class="container" style="width: 90%">
+    <canvas id="lineChart" >
+
+    </canvas>
+
+</div>
+
+    <script>
+    chartforincome();
+
+        function chartforincome(){
+
+ $.ajax({
+    url: '{{ url_for("income") }}'
+    }).done(function (data) {
+
+     var newDatai = [];
+
+
+     for (var i = 0; i < data.json_list.length; i++) {
+
+      var obj2 = {
+       label: data.json_list[i].total_for_visit,
+       high_value: data.json_list[i].total_for_visit,
+
+       id: data.json_list[i].ID
+
+      }
+
+      newDatai.push(obj2.high_value);
+
+
+
+
+     };
+console.log(Object.values(newDatai))
+
+var newArri = new Array;
+$.each(newDatai,function(key,value) {
+    newArri.push(value);
+});
+
+
+
+    const CHART = document.getElementById('lineChart');
+
+    var lineChart = new Chart(CHART, {
+        type: 'line',
+        data: {
+            labels: Object.keys(newDatai),
+            datasets:[
+                {
+                    label: 'Cash flow',
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJointStyle: 'miter',
+
+                    data: Object.values(newDatai)
+                }
+            ]
+        }
+    })
+
+    });
+
+
+
+}
+    </script>
+</div>
+<a class="btn btn-success" href="/add_article"> Add Article</a>
+<a class="btn btn-success" href="/add_patient"> Add patient</a>
+<hr>
+<div class="table-responsive">
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Age</th>
+        <th>Phone Number</th>
+        <th>Email</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+
+
+    </tr>
+    {% for article in articles %}
+    <tr>
+        <td>{{article.patient_id}}</td>
+         <td>{{article.patient_name}}</td>
+         <td>{{article.patient_age}}</td>
+        <td>{{article.patient_phonenumber}}</td>
+        <td>{{article.patient_email}}</td>
+         <td>{{article.create_date}}</td>
+         <td><a href="edit_patient/{{article.patient_id}}" class="btn btn-success pull-right">Edit</a></td>
+         <td>
+             <form action="{{url_for('delete_patient', id=article.patient_id)}}", method="POST">
+                 <input type="hidden" name="_method" value="DELETE">
+                 <input type="submit" value="Delete" class="btn btn-danger">
+
+         </form></td>
+    </tr>
+    {% endfor %}
+</table>
+</div>
+{% endblock %}

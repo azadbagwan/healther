@@ -1,0 +1,288 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="container">
+<div class="dropdown">
+
+    <select name=dropdown id="dropdown" size=1>
+        <optgroup label="Choose the graph you want shown">
+    <option value="bloodpressure" selected="true">Blood pressure</option>
+    <option value="temperature">Temperature</option>
+        <option value="sugar">Sugar</option>
+        </optgroup>
+</select>
+</div>
+
+
+<div class="container">
+    <canvas id="lineChart" width="50" height="20"></canvas>
+
+</div>
+<div class="container">
+    <canvas id="lineChart-temp" width="50" height="20"></canvas>
+
+</div>
+
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<script>
+chartforbp();
+    $("#dropdown").change(function(){
+
+    if ($(this).val() == "bloodpressure"){
+        chartforbp();
+     }
+     else if($(this).val() == "temperature"){
+
+            chartfortemp();
+     }
+     else if($(this).val() == "sugar"){
+          chartforsugar();
+     }
+});
+
+
+
+
+
+
+
+function chartforbp(){
+ $.ajax({
+    url: '{{ url_for("bloodpressure") }}'
+    }).done(function (data) {
+
+     var newData = [];
+     var newDatalow=[];
+
+     for (var i = 0; i < data.json_list.length; i++) {
+
+      var obj = {
+       label: data.json_list[i].systolic_bloodpressure,
+       high_value: data.json_list[i].systolic_bloodpressure,
+       low_value: data.json_list[i].diastolic_bloodpressure,
+       id: data.json_list[i].ID
+
+      }
+
+      newData.push(obj.high_value);
+      newDatalow.push(obj.low_value);
+
+
+
+     };
+console.log(Object.values(newData))
+
+var newArr = new Array;
+$.each(newData,function(key,value) {
+    newArr.push(value);
+});
+
+var data = {
+        'January' : '65',
+        'February' : '59',
+        'March' : '80',
+        'April' : '81',
+        'May' : '52',
+        'June' : '122'
+    }
+
+    const CHART = document.getElementById('lineChart');
+
+    var lineChart = new Chart(CHART, {
+        type: 'line',
+        data: {
+            labels: Object.keys(newData),
+            datasets:[
+                {
+                    label: 'Systolic Blood pressure',
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJointStyle: 'miter',
+
+                    data: Object.values(newData)
+                },
+                 {
+        data: Object.values(newDatalow),
+        label: "Diastolic Blood pressure",
+        borderColor: "#c45850",
+        fill: false
+      }
+            ]
+        }
+    })
+
+    });
+
+}
+
+
+
+
+
+
+
+function chartfortemp(){
+
+ $.ajax({
+    url: '{{ url_for("temperature") }}'
+    }).done(function (data) {
+
+     var newDatat = [];
+
+
+     for (var i = 0; i < data.json_list.length; i++) {
+
+      var obj2 = {
+       label: data.json_list[i].temperature,
+       high_value: data.json_list[i].temperature,
+
+       id: data.json_list[i].ID
+
+      }
+
+      newDatat.push(obj2.high_value);
+
+
+
+
+     };
+console.log(Object.values(newDatat))
+
+var newArrt = new Array;
+$.each(newDatat,function(key,value) {
+    newArrt.push(value);
+});
+
+
+
+    const CHART = document.getElementById('lineChart');
+
+    var lineChart = new Chart(CHART, {
+        type: 'line',
+        data: {
+            labels: Object.keys(newDatat),
+            datasets:[
+                {
+                    label: 'Temperature',
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJointStyle: 'miter',
+
+                    data: Object.values(newDatat)
+                }
+            ]
+        }
+    })
+
+    });
+
+
+
+}
+function chartforsugar(){
+
+ $.ajax({
+    url: '{{ url_for("sugar") }}'
+    }).done(function (data) {
+
+     var newDatas = [];
+
+
+     for (var i = 0; i < data.json_list.length; i++) {
+
+      var obj3 = {
+       label: data.json_list[i].sugar,
+       high_value: data.json_list[i].sugar,
+
+       id: data.json_list[i].ID
+
+      }
+
+      newDatas.push(obj3.high_value);
+
+
+
+
+     };
+console.log(Object.values(newDatas))
+
+var newArrs = new Array;
+$.each(newDatas,function(key,value) {
+    newArrs.push(value);
+});
+
+
+
+    const CHART = document.getElementById('lineChart');
+
+    var lineChart = new Chart(CHART, {
+        type: 'line',
+        data: {
+            labels: Object.keys(newDatas),
+            datasets:[
+                {
+                    label: 'Sugar',
+                    fill: false,
+                    lineTension: 0,
+                    backgroundColor: "rgba(75,192,192,0.4)",
+                    borderColor: "rgba(75,192,192,1)",
+                    borderCapStyle: 'butt',
+                    borderDash: [],
+                    borderDashOffset: 0.0,
+                    borderJointStyle: 'miter',
+
+                    data: Object.values(newDatas)
+                }
+            ]
+        }
+    })
+
+    });
+
+
+
+}
+</script>
+
+
+<h1>{{article.patient_name}}</h1>
+<small>Email of patient is- {{article.patient_email}} </small><br>
+<small>Contact number- {{article.patient_phonenumber}}</small><br>
+
+<small>Total till now- {{totamount}}</small><br>
+    <small>paid till now- {{paidamount}}</small><br>
+    <small>Due till now- {{dueamount}}</small>
+<div><a class="btn btn-success" href="/add_visit"> New Visit</a></div>
+<div style=" padding-top: 70px">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+<ul class="list-group">
+{% for article in articles %}
+    <li class="list-group-item"><a href="/visit_details/{{article.visit_id}}"> {{article.visit_issue}}</a> <br>
+     <small>visit id- {{article.visit_id}}</small> <small>visit Date- {{article.visit_create_date}}</small></li>
+
+{% endfor %}
+</ul>
+    </div>
+<br>
+
+
+
+</div>
+{% endblock %}

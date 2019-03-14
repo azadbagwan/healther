@@ -1,0 +1,75 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+<link rel="stylesheet" href="navbar-fixed-right.min.css">
+
+<script src="{{ url_for('static', filename='form_add_visit.js')}}"></script>
+
+
+<div class="container">
+
+
+
+
+    <h1>Add Visit</h1>
+
+    <a class="btn btn-success" href="/add_prescription"> Make prescription</a>
+ <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi beatae cupiditate fugit sunt ut. Ea enim facilis illo inventore itaque magnam, minima non quaerat quasi quod sapiente sed similique suscipit!</p>
+
+<div class="container">
+    <form class="form">
+        <div class="form-group">
+            <input type="text" class="form-control" id="reason_for_visit" placeholder="Reason for visit">
+        </div>
+        <div class="form-group">
+               Name of doctor
+             <input type="text" class="form-control" id="diagnosis" placeholder="Diagnosis">
+            </div>
+           <div class="form-group">
+               start time
+            <input type="text" class="form-control" id="comments" placeholder="Comments">
+                </div>
+
+         <div class="form-group">
+               End time
+            <input type="text" class="form-control" id="systolic_bloodpressure" placeholder="Systolic bloodpressure">
+                 </div>
+        <div class="form-group">
+               Comments
+           <input type="text" class="form-control" id="diastolic_bloodpressure" placeholder="Diastolic bloodpressure">
+                 </div>
+        <div class="form-group">
+               Comments
+           <input type="text" class="form-control" id="temperature" placeholder="Temperature">
+                 </div>
+        <div class="form-group">
+               Comments
+           <input type="text" class="form-control" id="sugar" placeholder="Sugar">
+                 </div>
+        <div class="form-group">
+               Comments
+           <input type="number" class="form-control" id="total_amount" placeholder="Total amount">
+                 </div>
+        <div class="form-group">
+               Comments
+           <input type="number" class="form-control" id="paid_amount" placeholder="Paid amount">
+                 </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+    </form>
+    <br>
+    <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+      <div id="errorAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+
+</div>
+
+</div>
+{% endblock %}

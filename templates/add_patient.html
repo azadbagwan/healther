@@ -1,0 +1,55 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+
+<script src="{{ url_for('static', filename='form_add_patient.js')}}"></script>
+
+<div class="container">
+
+
+
+    <h1>Add Patient</h1>
+
+    <form method="POST" action="">
+        <div class="form-group">
+            Name of patient
+             <input type="text" class="form-control" id="name_of_patient" placeholder="Diagnosis">
+        </div>
+           <div class="form-group">
+               Age
+             <input type="text" class="form-control" id="age_of_patient" placeholder="Age">
+                </div>
+           <div class="form-group">
+               Birth Date
+            <input type="text" class="form-control" id="birth_date_of_patient" placeholder="Birth-date">
+                </div>
+
+         <div class="form-group">
+               email
+             <input type="text" class="form-control" id="email_of_patient" placeholder="Email">
+                </div>
+        <div class="form-group">
+               Phone Number
+             <input type="text" class="form-control" id="phone_number_of_patient" placeholder="Phone number">
+                </div>
+           <div class="form-group">
+               Known History
+             <input type="text" class="form-control" id="known_history_of_patient" placeholder="Known history">
+                </div>
+        <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+
+    </form>
+ <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi beatae cupiditate fugit sunt ut. Ea enim facilis illo inventore itaque magnam, minima non quaerat quasi quod sapiente sed similique suscipit!</p>
+
+
+</div>
+{% endblock %}

@@ -1,0 +1,86 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+
+
+<script>
+    $.ajax({
+    url: '{{ url_for("autocomplete") }}'
+    }).done(function (data) {
+
+     var newData = [];
+
+     for (var i = 0; i < data.json_list.length; i++) {
+
+      var obj = {
+       label: data.json_list[i].medicine_name,
+       value: data.json_list[i].medicine_name,
+       id: data.json_list[i].ID
+      }
+
+      newData.push(obj);
+     };
+
+
+        $('#tags1').autocomplete({
+            source: newData,
+            datatype: "json"
+        });
+    });
+</script>
+
+<script>
+    var names = $("tags1").val();
+    function myfun(){
+    $.ajax({
+    url: '{{ url_for("medicines_list") }}',
+    type: 'post',
+    data:{"CallFunc1" :names},
+    success: function(response) {
+    console.log(response);}
+    });
+    }
+</script>
+
+<h1>Medicines </h1>
+<img src="{{url_for('static',filename='example.jpeg')}}">
+<div>
+    {% from "includes/_formhelpers.html" import render_field %}
+ <form method="POST" action="">
+
+
+{{ form.name_of_medicine.label }}: {{ form.name_of_medicine }}
+
+
+
+
+
+
+      <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+
+    </form>
+
+
+<ul id="medlist" class="list-group">
+{% for medicines in medicines %}
+    <li class="list-group-item">
+        <a href="/"> {{medicines.medicine_name}} <br>
+
+        <small>Name of manufacturer- {{medicines.manufacturers_name}}</small><br>
+         <small>Indication- {{medicines.treatment_of}}</small><br>
+            <small>Composition- {{medicines.composition}}</small><br> </a>
+        <div><img src="{{url_for('static',filename='example.jpeg')}}"></div>
+
+    </li>
+{% endfor %}
+</ul>
+</div>
+{% endblock %}

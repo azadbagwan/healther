@@ -1,0 +1,41 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+
+
+
+<div id="msgid">
+</div>
+<div class="jumbotron text-center">
+
+    <h1>Welcome to flask app</h1>
+ <p class="lead">get ready to rock the world</p>
+{% if session.logged_in == NULL %}
+    <a href="/register" class="btn btn-primary btn-lg">Register</a>
+      <a href="/login" class="btn btn-success btn-lg">Login</a>
+    {% endif %}
+
+</div>
+<div class="jumbotron text-center">
+
+<ul class="list-group">
+     <li class="list-group-item"><a href="articles" class="btn btn-success pull-right">Patients</a></li>
+    <li class="list-group-item"><a href="dashboard" class="btn btn-success pull-right">dashboard</a></li>
+     <li class="list-group-item"><a href="medicines_list" class="btn btn-success pull-right">Medicine list</a></li>
+     <li class="list-group-item"><a href="add_medicine" class="btn btn-success pull-right">Add medicines</a></li>
+     <li class="list-group-item"><a href="doctors" class="btn btn-success pull-right">doctors</a></li>
+      <li class="list-group-item"><a href="book_appointment" class="btn btn-success pull-right">Book appointment</a></li>
+
+
+</ul>
+</div>
+
+
+
+{% endblock %}

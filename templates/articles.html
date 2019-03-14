@@ -1,0 +1,101 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+<script src="{{ url_for('static', filename='forms_js/form_add_patient.js')}}"></script>
+<script>
+    function callme() {
+
+                     $("#myModal").modal("show");
+                }
+</script>
+ <p><input type="button" value="Click Me" onclick="callme()" /></p>
+<h1>Patients</h1>
+
+<ul class="list-group">
+
+    {% from "includes/_formhelpers.html" import render_field %}
+
+
+
+
+<!-- The Modal -->
+<div class="modal" id="myModal">
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h4 class="modal-title">Modal Heading</h4>
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <div class="container" id="formbook">
+    <form class="form" id="form_add_patient">
+        <div class="form-group">
+            Name of patient
+             <input type="text" class="form-control" id="name_of_patient" placeholder="Diagnosis">
+        </div>
+           <div class="form-group">
+               Age
+             <input type="text" class="form-control" id="age_of_patient" placeholder="Age">
+                </div>
+           <div class="form-group">
+               Birth Date
+            <input type="text" class="form-control" id="birth_date_of_patient" placeholder="Birth-date">
+                </div>
+
+         <div class="form-group">
+               email
+             <input type="text" class="form-control" id="email_of_patient" placeholder="Email">
+                </div>
+        <div class="form-group">
+               Phone Number
+             <input type="text" class="form-control" id="phone_number_of_patient" placeholder="Phone number">
+                </div>
+           <div class="form-group">
+               Known History
+             <input type="text" class="form-control" id="known_history_of_patient" placeholder="Known history">
+                </div>
+
+        <p><input type="button" class="btn btn-primary" value="add_patient" id="btn_add_patient"></p>
+    </form>
+    <br>
+    <div id="successAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+      <div id="errorAlert" class="alert alert-success" role="alert" style="display:none;"></div>
+
+</div>
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+ <form method="POST" action="">
+
+
+{{ form.name_of_patient.label }}: {{ form.name_of_patient }}
+
+
+
+
+
+
+      <input type="submit" class="btn btn-primary" value="Search">
+
+    </form>
+    {% for patient in patients %}
+    <li class="list-group-item"><a href="article/{{patient.patient_id}}"> {{patient.patient_name}}</a></li>
+{% endfor %}
+</ul>
+{% endblock %}

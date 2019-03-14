@@ -1,0 +1,47 @@
+{% extends 'layout.html' %}
+{% block body %}
+
+<div style="font-size: 20px">
+<strong>Reason for visit-</strong>
+<small>{{visit.visit_issue}}</small><br>
+<small>{{visit.visit_create_date}}</small> <br>
+
+<strong>Diagnosis-</strong>
+<small>{{visit.visit_diagnosis}}</small>
+    <br>
+
+<strong>Notes-</strong>
+<small>{{visit.comments}}</small><br>
+
+    <strong> blood pressure-</strong>
+<small>{{visit.systolic_bloodpressure}} / {{visit.diastolic_bloodpressure}} </small> <br>
+
+     <strong> Temperature-</strong>
+<small>{{visit.temperature}} </small> <br>
+
+     <strong> Sugar-</strong>
+<small>{{visit.sugar}} </small> <br>
+    </div>
+
+
+
+<div style="padding-top: 20px">
+    <a href="edit_visit_details/{{visit.visit_id}}" class="btn btn-success pull-right">Edit</a>
+<a class="btn btn-success" href="/edit_visit_details/{{visit.visit_id}}"> Edit Visit</a>
+</div>
+
+<div style="padding-top: 20px">
+
+<a class="btn btn-success" href="/add_prescription">Add Prescription </a>
+
+</div>
+<Strong>Prescription</Strong>
+<div>
+<ul class="list-group">
+{% for prescriptions in prescriptions %}
+    <li class="list-group-item"> {{prescriptions.medicine_name}}<br>
+        <small> Dose- {{prescriptions.dose}}</small> <small> days- {{prescriptions.for_days}}</small></li>
+{% endfor %}
+</ul>
+    </div>
+{% endblock %}

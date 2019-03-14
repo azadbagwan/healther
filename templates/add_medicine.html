@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+</script>
+<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <link rel="stylesheet" href="/resources/demos/style.css">
+      <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+
+
+<script src="{{ url_for('static', filename='forms_js/form_add_medicine.js')}}"></script>
+
+<div class="container">
+
+
+
+    <h1>Add Medicine</h1>
+
+    <form class="form"method="POST" action="">
+        <div class="form-group">
+            Name of medicine
+            <input type="text" class="form-control" id="name_of_medicine" placeholder="Diagnosis">
+        </div>
+           <div class="form-group">
+               Manufacturer
+            <input type="text" class="form-control" id="name_of_manufacturer" placeholder="Diagnosis">
+                </div>
+           <div class="form-group">
+               For treatment of
+            <input type="text" class="form-control" id="for_treatment_of" placeholder="Diagnosis">
+                </div>
+
+         <div class="form-group">
+               composition of medicine
+            <input type="text" class="form-control" id="composition_of_medicine" placeholder="Diagnosis">
+                </div>
+
+        <p><input type="submit" class="btn btn-primary" value="Submit"></p>
+
+    </form>
+ <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi beatae cupiditate fugit sunt ut. Ea enim facilis illo inventore itaque magnam, minima non quaerat quasi quod sapiente sed similique suscipit!</p>
+
+
+</div>
+{% endblock %}
