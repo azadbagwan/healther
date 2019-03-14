@@ -207,21 +207,25 @@ def visit_details(id):
 #@is_logged_in
 def doctors():
     # create cursor
-    cur = mysql.connection.cursor()
+    try:
+      cur = mysql.connection.cursor()
 
-    # Get doctors
-    result = cur.execute("SELECT * FROM users")
+      # Get doctors
+      result = cur.execute("SELECT * FROM users")
 
-    doctors = cur.fetchall()
+      doctors = cur.fetchall()
 
-    if result > 0:
-        return render_template('doctors.html', doctors=doctors)
-    else:
+      if result > 0:
+         return render_template('doctors.html', doctors=doctors)
+      else:
         msg = 'no articles found'
         return render_template('doctors.html', msg=msg)
 
     # close connection
-    cur.close()
+      cur.close()
+
+    except:
+         return  render_template('home.html')
 
 
 # single doctor
